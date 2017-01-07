@@ -1,0 +1,46 @@
+#import "UserInfoApi.h"
+
+@implementation UserInfoApi
+{
+    NSMutableDictionary *_headerDic;
+    NSDictionary *_arguments;
+    NSString * _url;
+    YTKRequestMethod _type;
+}
+-(instancetype)initWithArguments:(NSDictionary *)arguments Url:(NSString * )url Type:(YTKRequestMethod)type{
+    self = [super init];
+    if (self) {
+        [self setTokenArgument:arguments];
+        _url = url;
+        _type = type;
+        _arguments = arguments;
+    }
+    return self;
+    
+}
+- (NSString *)requestUrl {
+    return _url;
+}
+
+- (YTKRequestMethod)requestMethod {
+    return _type;
+}
+//重写返回请求头方法
+- (NSDictionary<NSString *, NSString *> *)requestHeaderFieldValueDictionary
+{
+    return _headerDic;
+}
+- (void) setTokenArgument:(NSDictionary *)arguments{
+    _headerDic = [[NSMutableDictionary alloc]init];;
+    [_headerDic setValue:APPID forKey:@"APPID"];
+}
+-(void)beginWithCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success failure:(YTKRequestCompletionBlock)failure{
+    [super startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request){
+    //请求成功
+        }
+    }failure:^(YTKBaseRequest *request){
+        failure(request);
+    }];
+}
+
+@end
